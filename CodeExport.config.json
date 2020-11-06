@@ -1,0 +1,39 @@
+{
+	"Module Paths": {
+		"PRINCIPAL": "PRINCIPAL.bas",
+		"CONSTANTES": "CONSTANTES.bas",
+		"ACCES": "ACCES.bas",
+		"BBDDEXCEL": "BBDDEXCEL.bas",
+		"MAIL": "MAIL.bas"
+	},
+	"References": [
+		{
+			"Name": "ADOMD",
+			"Description": "Microsoft ActiveX Data Objects (Multi-dimensional) 6.0 Library",
+			"GUID": "{22813728-8BD3-11D0-B4EF-00A0C9138CA4}",
+			"Major": 6,
+			"Minor": 0
+		},
+		{
+			"Name": "ADODB",
+			"Description": "Microsoft ActiveX Data Objects 6.1 Library",
+			"GUID": "{B691E011-1797-432E-907A-4D8C69339129}",
+			"Major": 6,
+			"Minor": 1
+		},
+		{
+			"Name": "Access",
+			"Description": "Microsoft Access 16.0 Object Library",
+			"GUID": "{4AFFC9A0-5F99-101B-AF4E-00AA003F0F07}",
+			"Major": 9,
+			"Minor": 0
+		},
+		{
+			"Name": "ADOR",
+			"Description": "Microsoft ActiveX Data Objects Recordset 6.0 Library",
+			"GUID": "{00000300-0000-0010-8000-00AA006D2EA4}",
+			"Major": 6,
+			"Minor": 0
+		}
+	]
+}
