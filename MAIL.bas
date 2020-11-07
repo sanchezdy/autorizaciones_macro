@@ -51,6 +51,7 @@ Function envio_mail()
             With MI 'with nos permite ejecutar un conjunto de instrucciones sin tener que volver hacer referencia al objeto
                 .SentOnBehalfOfName = "autorizacionespymes@telefonica.com" 'se manda el mail en nombre de la cuenta especificada pero no desde la cuenta especificada
                 .To = Destinatario
+                .CC = Worksheets("fuente").Cells(Contador + 1, 5).Value
                 .BCC = "autorizacionespymes@telefonica.com"
                 .Subject = Asunto
                 .HTMLBody = Cuerpo
@@ -62,6 +63,7 @@ Function envio_mail()
             With MI 'with nos permite ejecutar un conjunto de instrucciones sin tener que volver hacer referencia al objeto
                 .SentOnBehalfOfName = "autorizacionespymes@telefonica.com" 'se manda el mail en nombre de la cuenta especificada pero no desde la cuenta especificada
                 .To = "autorizacionespymes@telefonica.com"
+                .CC = Worksheets("fuente").Cells(Contador + 1, 5).Value
                 '.BCC = "autorizacionespymes@telefonica.com"
                 .Subject = "PETICIÓN AUTORIZACIÓN NO RESPONDIDA " & Worksheets("fuente").Cells(Contador + 1, 4).Value
                 .Body = "La petición de autorización de " & Cuerpo & " no ha sido respondida"
@@ -78,7 +80,7 @@ Function envio_mail()
     With MITWO 'with nos permite ejecutar un conjunto de instrucciones sin tener que volver hacer referencia al objeto
         .SentOnBehalfOfName = "autorizacionespymes@telefonica.com" 'se manda el mail en nombre de la cuenta especificada pero no desde la cuenta especificada
         .To = "autorizacionespymes@telefonica.com"
-        .BCC = "autorizacionespymes@telefonica.com"
+        '.BCC = "autorizacionespymes@telefonica.com"
         .Subject = "INFORME DE ENVIOS A: " & fecha_actual
         .Body = "Hoy se han respondido " & contador_resp & " peticiones de autorización de las cuales " & contador_autori & " han sido autorizadas. Hay " & contador_noresp & " peticiones de autorización no respondidas."
         .Send
