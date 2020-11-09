@@ -40,22 +40,6 @@ Function traer_macro_mail()
         Worksheets("fuente").Cells(1, i) = res.Fields(i - 1).Name
     
     Next
-'    Dim Contador As Integer
-'    Dim u_fila As Integer
-'    Dim tot_fila As Integer
-'    Dim trimado As String
-'
-'
-'    u_fila = Worksheets("fuente").UsedRange.SpecialCells(xlCellTypeLastCell).Row 'obtenemos el total de filas usadas
-'    tot_fila = u_fila - 1
-'
-'    For Contador = 1 To tot_fila
-'     trimado = Trim(Cells(Contador + 1, 3).Value)
-'     Cells(Contador + 1, 3).Value = trimado
-'    Next
-    
-
-
     
 End Function
 
@@ -154,10 +138,11 @@ Function cruce_shuttle()
     res.Open Source:=consulta, _
     ActiveConnection:=conn
     
-    numero_de_filas = Worksheets("fuente").UsedRange.Rows.Count
+    numero_de_filas = Worksheets("fuente").Cells(1, 1).CurrentRegion.Rows.Count
     If numero_de_filas > 0 And i = 0 Then
         Worksheets("fuente").Range("F2:J" & numero_de_filas).ClearContents
     End If
+    
     Worksheets("fuente").Cells(1, 6) = "auto"
     Worksheets("fuente").Cells(1, 7) = "no_auto"
     Worksheets("fuente").Cells(2, c).CopyFromRecordset res

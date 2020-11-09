@@ -17,9 +17,9 @@ Function envio_mail()
     Dim contador_noautori As Integer
     
     Set OA = CreateObject("Outlook.Application") 'Damos valor al objeto como objeto Outlook
-    u_fila = Worksheets("fuente").UsedRange.SpecialCells(xlCellTypeLastCell).Row 'obtenemos el total de filas usadas
+    u_fila = Worksheets("fuente").Cells(1, 1).CurrentRegion.Rows.Count 'obtenemos el total de filas usadas
     tot_fila = u_fila - 1
-    
+   
     fecha_actual = Date
     contador_resp = 0
     contador_autori = 0

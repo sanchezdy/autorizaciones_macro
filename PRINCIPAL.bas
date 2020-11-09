@@ -11,11 +11,9 @@ Sub envio_autorizados()
     MsgBox "masajeo finalizado, vamos a prooceder a enviar las respuestas"
 
     envio_mail 'envio de las respuestas
-    MsgBox "Mails enviados, ATENCIÓN el proceso no ha terminado"
-    guardado_resp_autori ("autorizaciones.accdb") 'guardado de las respuestas en bbdd
-    'MsgBox "!!!Base de datos actualizada, vamos a crear un BACKUP!!!"
-    MsgBox "base de datos actualizada, PROCESO TERMINADO"
-    'guardado_resp_autori ("autorizaciones_bkp.accdb")
-    'MsgBox "!!!Backup creado, proceso terminado!!!"
-End Sub
+    MsgBox "Mails enviados, ATENCION el proceso no ha terminado"
 
+    guardado_resp_autori ("autorizaciones.accdb") 'guardado de las respuestas en bbdd
+    MsgBox "base de datos actualizada, PROCESO TERMINADO"
+
+End Sub
