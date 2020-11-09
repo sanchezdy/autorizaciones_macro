@@ -154,9 +154,9 @@ Function cruce_shuttle()
     res.Open Source:=consulta, _
     ActiveConnection:=conn
     
-    numero_de_filas = Worksheets(master_hojas(i)).UsedRange.Rows.Count
-    If numero_de_filas > 0 Then
-        Worksheets(master_hojas(i)).Range("G2:J" & numero_de_filas).ClearContents
+    numero_de_filas = Worksheets("fuente").UsedRange.Rows.Count
+    If numero_de_filas > 0 And i = 0 Then
+        Worksheets("fuente").Range("F2:J" & numero_de_filas).ClearContents
     End If
     Worksheets("fuente").Cells(1, 6) = "auto"
     Worksheets("fuente").Cells(1, 7) = "no_auto"

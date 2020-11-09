@@ -57,6 +57,7 @@ Function envio_mail()
                 .HTMLBody = Cuerpo
                 .Send
             End With
+           
             contador_resp = contador_resp + 1
         Else
             Cuerpo = Worksheets("fuente").Cells(Contador + 1, 3).Value
@@ -67,7 +68,7 @@ Function envio_mail()
                 '.BCC = "autorizacionespymes@telefonica.com"
                 .Subject = "PETICIÓN AUTORIZACIÓN NO RESPONDIDA " & Worksheets("fuente").Cells(Contador + 1, 4).Value
                 .Body = "La petición de autorización de " & Cuerpo & " no ha sido respondida"
-                '.Send
+                .Send
             End With
             contador_noresp = contador_noresp + 1
         End If
@@ -85,7 +86,7 @@ Function envio_mail()
         .Body = "Hoy se han respondido " & contador_resp & " peticiones de autorización de las cuales " & contador_autori & " han sido autorizadas. Hay " & contador_noresp & " peticiones de autorización no respondidas."
         .Send
     End With
-    
+    MsgBox "Hoy se han respondido " & contador_resp & " peticiones de autorización de las cuales " & contador_autori & " han sido autorizadas. Hay " & contador_noresp & " peticiones de autorización no respondidas."
     Sheets(1).Select
     
    

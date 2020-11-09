@@ -1,13 +1,13 @@
 Attribute VB_Name = "PRINCIPAL"
 Sub envio_autorizados()
-    'traer_macro_mail 'preparacion de la fuente de datos para las respuestas
-    'MsgBox "macro mail importada"
+    traer_macro_mail 'preparacion de la fuente de datos para las respuestas
+    MsgBox "macro mail importada"
 
-    'traer_shuttle
+    traer_shuttle
     MsgBox "shuttle importado"
 
     cruce_shuttle
-    'rastreo_2
+    rastreo_2
     MsgBox "masajeo finalizado, vamos a prooceder a enviar las respuestas"
 
     envio_mail 'envio de las respuestas
