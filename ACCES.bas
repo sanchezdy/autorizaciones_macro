@@ -7,7 +7,7 @@ Dim res As ADODB.Recordset 'creamos objeto bd
 Dim consulta As String
 Dim consulta_2 As String
 Dim OA As Object
-Dim MAIL As Object
+Dim mail As Object
 
 
 Set OA = CreateObject("Outlook.Application")
@@ -71,13 +71,12 @@ Set conn = Nothing
 
 Exit Function
 Control_error_1:
-            'Set Mail = OA.CreateItem(olMailItem)
-            MsgBox "Se ha producido ERROR al guardar en BBDD el siguiente registro " & campo_3
-                'Mail.SentOnBehalfOfName = "autorizacionespymes@telefonica.com"
-                'Mail.To = "dey.sanchezgarcia@telefonica.com"
-                'Mail.Subject = "HA EXISTIDO UN ERROR DE CARGA EN BBDD"
-                'Mail.Body = "Se ha detectado el siguiente error " & Err.Description & " en el registro con NU_TELEFONO " & campo_3
-                'Mail.Send
+            Set mail = OA.CreateItem(olMailItem)
+                mail.SentOnBehalfOfName = "autorizacionespymes@telefonica.com"
+                mail.To = "dey.sanchezgarcia@telefonica.com"
+                mail.Subject = "HA EXISTIDO UN ERROR DE CARGA EN BBDD DE ENVIO_AUTORIZADOS(AUTORIZACIÓNES)"
+                mail.Body = "Se ha detectado el siguiente error " & Err.Description & " en el registro con NU_TELEFONO " & campo_3
+                mail.Send
                 Resume Next
 
 End Function
