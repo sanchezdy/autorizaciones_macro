@@ -26,14 +26,15 @@ Function traer_macro_mail()
     res.Open Source:=consulta, _
     ActiveConnection:=conn
     
-    numero_de_filas = Worksheets("fuente").UsedRange.Rows.Count
+    numero_de_filas = Worksheets("fuente").Cells(1, 1).CurrentRegion.Rows.Count
     
     'importamos los datos
     If numero_de_filas > 0 Then
-        Worksheets("fuente").Range("A1:U" & numero_de_filas).ClearContents
+        'Worksheets("fuente").Range("A1:U" & numero_de_filas).ClearContents
+        Worksheets("fuente").Range("A1:U" & numero_de_filas).EntireRow.Delete
     End If
     Worksheets("fuente").Cells(2, 1).CopyFromRecordset res 'se copia toda la consulta res en una hoja de excel
-    
+  
     'rellenamos los campos
     num_campos = res.Fields.Count
     For i = 1 To num_campos
@@ -45,7 +46,7 @@ End Function
 
 
 
-Function traer_shuttle()
+Function traer_shuttle() As Integer
 
 Dim conn As ADODB.Connection 'creamos objeto bd
 Dim res As ADODB.Recordset 'creamos objeto bd
@@ -76,10 +77,10 @@ For j = 0 To 1
     res.Open Source:=consulta, _
     ActiveConnection:=conn
     
-    numero_de_filas = Worksheets(master_hojas(j)).UsedRange.Rows.Count
+    numero_de_filas = Worksheets(master_hojas(j)).Cells(1, 1).CurrentRegion.Rows.Count
     
     If numero_de_filas > 0 Then
-        Worksheets(master_hojas(j)).Range("A1:U" & numero_de_filas).ClearContents
+        Worksheets(master_hojas(j)).Range("A1:U" & numero_de_filas).EntireRow.Delete
     End If
     Worksheets(master_hojas(j)).Cells(2, 1).CopyFromRecordset res 'se copia toda la consulta res en una hoja de excel
     Worksheets(master_hojas(j)).Cells(1, 1) = "NU_TELEFONO"
@@ -87,7 +88,7 @@ For j = 0 To 1
     Worksheets(master_hojas(j)).Cells(1, 3) = "CLIENTE"
     Worksheets(master_hojas(j)).Cells(1, 4) = "resp"
 
-    new_numero_de_filas = Worksheets(master_hojas(j)).UsedRange.Rows.Count
+    new_numero_de_filas = Worksheets(master_hojas(j)).Cells(1, 1).CurrentRegion.Rows.Count
     'ahora ya podemos recorrer la consulta
 
     For i = 2 To new_numero_de_filas
@@ -97,14 +98,23 @@ For j = 0 To 1
         cif_manip = Right(Worksheets(master_hojas(j)).Cells(i, 2), 9)
         Worksheets(master_hojas(j)).Cells(i, 2) = cif_manip
     Next
+    
+    traer_shuttle = 9 'numero de control
+    If Worksheets(master_hojas(j)).Range("A2") = "" Or Worksheets(master_hojas(j)).Range("A2") = Null Then
+        traer_shuttle = j
+    End If
+     
     Set res = Nothing
+
 Next
 
 
 End Function
 
-Function cruce_shuttle()
+Function cruce_shuttle(control As Integer)
 
+    
+    
     Dim conn As ADODB.Connection 'creamos objeto bd
     Dim res As ADODB.Recordset 'creamos objeto bd
     Dim consulta As String
@@ -129,10 +139,19 @@ Function cruce_shuttle()
     
     'importamos autorizados y no autorizados
     c = 6 'desde donde empezamos a importar (columna 6)
-    For i = 0 To 1
     
-    consulta = "SELECT [" & master_hojas(i) & "$].[resp] FROM [fuente$] LEFT JOIN [" & master_hojas(i) & "$] ON [fuente$].[NU_TELEFONO]=[" & master_hojas(i) & "$].[NU_TELEFONO] "
+    Worksheets("fuente").Cells(1, 6) = "auto"
+    Worksheets("fuente").Cells(1, 7) = "no_auto"
+    
+    
+    For i = 0 To 1
+  
+    If control <> i Then
    
+    
+        
+    consulta = "SELECT [" & master_hojas(i) & "$].[resp] FROM [fuente$] LEFT JOIN [" & master_hojas(i) & "$] ON [fuente$].[NU_TELEFONO]=[" & master_hojas(i) & "$].[NU_TELEFONO] "
+    
     Set res = New ADODB.Recordset
     res.CursorLocation = adUseServer
     res.Open Source:=consulta, _
@@ -143,13 +162,13 @@ Function cruce_shuttle()
         Worksheets("fuente").Range("F2:J" & numero_de_filas).ClearContents
     End If
     
-    Worksheets("fuente").Cells(1, 6) = "auto"
-    Worksheets("fuente").Cells(1, 7) = "no_auto"
+    
     Worksheets("fuente").Cells(2, c).CopyFromRecordset res
     c = c + 1
     
+    End If
     Next
-    
+   
     'fin de importacion
     
     'importación del CIF y CLIENTE
@@ -158,8 +177,13 @@ Function cruce_shuttle()
     c = 8 'variables que indican en que colimnas empezamos a importar
     d = 9
 
+    Worksheets("fuente").Cells(1, 8) = "CIF"
+    Worksheets("fuente").Cells(1, 9) = "CLIENTE"
+    
     For j = 0 To 1
     For i = 0 To 1
+    
+    If control <> i Then
     
     If i = 0 Then
         consulta = "SELECT [" & master_hojas(i) & "$].[" & master_campos(j) & "] FROM [fuente$] LEFT JOIN [" & master_hojas(i) & "$] ON [fuente$].[NU_TELEFONO]=[" & master_hojas(i) & "$].[NU_TELEFONO]"
@@ -173,22 +197,22 @@ Function cruce_shuttle()
     res.Open Source:=consulta, _
     ActiveConnection:=conn
     
-    numero_de_filas = Worksheets(master_hojas(i)).UsedRange.Rows.Count
+    numero_de_filas = Worksheets(master_hojas(i)).Cells(1, 1).CurrentRegion.Count
     If numero_de_filas > 0 Then
         Worksheets(master_hojas(i)).Range("H2:H" & numero_de_filas).ClearContents
     End If
     
     If j = 0 Then
-        Worksheets("fuente").Cells(1, 8) = "CIF"
+        
         Worksheets("fuente").Cells(2, c).CopyFromRecordset res
         c = c + 2
     ElseIf j = 1 Then
-        Worksheets("fuente").Cells(1, 9) = "CLIENTE"
+       
         Worksheets("fuente").Cells(2, d).CopyFromRecordset res
         d = d + 2
     
     End If
-        
+    End If
     Next
     
     'fin de importacion
@@ -204,7 +228,7 @@ End Function
 
 Function rastreo_2()
 
-    numero_de_filas = Worksheets("fuente").UsedRange.Rows.Count
+    numero_de_filas = Worksheets("fuente").Cells(1, 1).CurrentRegion.Rows.Count
     'variables para recorrer columnas
     c = 8
     e = 10

@@ -30,7 +30,7 @@ End With
 '''''''''''''''''''''''''''''''''''''''
 
 
-filas_excel = Worksheets("fuente").UsedRange.SpecialCells(xlCellTypeLastCell).Row 'obtenemos el total de filas usadas en la hoja fuente
+filas_excel = Worksheets("fuente").Cells(1, 1).CurrentRegion.Rows.Count 'obtenemos el total de filas usadas en la hoja fuente
 
 
 For i = 2 To filas_excel
